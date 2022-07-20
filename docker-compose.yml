@@ -1,14 +1,11 @@
 version: "3"
 services:
-
   client:
     build: .
-    networks:
-      - habitica
     environment:
       - BASE_URL=http://server:3000
     ports:
-        - "8080:8080"
+        - "8080"
     command: ["npm", "run", "client:dev"]
     depends_on:
       - server
@@ -16,9 +13,7 @@ services:
   server:
     build: .
     ports:
-      - "3000:3000"
-    networks:
-      - habitica
+      - "3000"
     environment:
       - NODE_DB_URI=mongodb://mongo/habitrpg
     depends_on:
@@ -27,10 +22,4 @@ services:
   mongo:
     image: mongo:3.6
     ports:
-      - "27017:27017"
-    networks:
-      - habitica
-
-networks:
-  habitica:
-    driver: bridge
+      - "27017"
